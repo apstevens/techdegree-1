@@ -3,31 +3,115 @@ Treehouse FSJS Techdegree:
 project 1 - A Random Quote Generator
 ******************************************/
 
-// For assistance: 
-  // Check the "Project Resources" section of the project instructions
-  // Reach out in your Slack community - https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat
-
 /*** 
- * `quotes` array 
+ * Array of objects
 ***/
+const quotes = [
+  {
+    quote: "It is during our darkest moments that we must focus to see the light",
+    source: "Aristotle",
+    citation: "https://www.brainyquote.com/quotes/aristotle_119068",
+    year: "2017"
+  },
+  {
+    quote: "What we do now echoes in eternity",
+    source: "Marcus Aurelius",
+    citation: "http://www.notable-quotes.com/a/aurelius_marcus.html",
+    year: "180 AD"
+  },
+  {
+    quote: "Generally speaking, the way of the warrior is resolute acceptance of death.",
+    source: "Miyamoto Musashi",
+    citation: "https://www.brainyquote.com/topics/warrior-quotes",
+    year: "2018",
+    type: "Warrior"
+  },
+  {
+    quote: "To err is human; to forgive is divine.",
+    source: "Alexander Pope",
+    citation: "https://www.brainyquote.com/topics/forgiveness-quotes",
+    year: "2019",
+    type: "Forgiveness"
+  },
+  {
+    quote: "The journey of a thousand miles begins with one step.",
+    source: "Lao Tzu",
+    citation: "https://www.brainyquote.com/topics/wisdom-quotes",
+    year: "2016",
+    type: "Wisdom"
+  }
 
+];
 
+console.log(quotes); // Logging output to console
 
 /***
- * `getRandomQuote` function
+ * Random color generator
 ***/
 
+function getRandomColor() {
+  let letters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
+function setRandomColor() {
+  $("#colorpad").css("background-color", getRandomColor());
+}
 
 /***
- * `printQuote` function
+ * Random quote generator
 ***/
+function getRandomQuote() {
+  const randomNumber = Math.floor(Math.random() * quotes.length); // Gets random number the length of the array index
+  return quotes[randomNumber];
+
+  console.log(randomNumber);
+}
+
+console.log(getRandomQuote());
+
+/***
+ * Print quote function
+***/
+function printQuote() {
+  let randomQuote = getRandomQuote();
+  let html = `
+    <p class="quote">${randomQuote.quote}</p>
+    <p class="source">${randomQuote.source}
+  `;
+
+  if (randomQuote.citation) {
+    html += `
+    <span class="citation">${randomQuote.citation}</span>`;
+    if (randomQuote.year) {
+      html += `
+      <span class="year">${randomQuote.year}</span>`;
+    }
+    if (randomQuote.type) {
+      html += `
+      <span class="year">${randomQuote.type}</span>`;
+    }
+    html += `</p>`;
+  }
+
+  console.log(html)
+
+  setRandomColor();
+  return document.getElementById('quote-box').innerHTML = html;
+}
+
+
+setInterval(printQuote, 5000);
 
 
 
 /***
  * click event listener for the print quote button
- * DO NOT CHANGE THE CODE BELOW!!
+ * 
 ***/
 
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
