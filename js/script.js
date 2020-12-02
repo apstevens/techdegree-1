@@ -58,10 +58,6 @@ function getRandomColor() {
   return color;
 }
 
-function setRandomColor() {
-  $("#colorpad").css("background-color", getRandomColor());
-}
-
 /***
  * Random quote generator
 ***/
@@ -73,6 +69,15 @@ function getRandomQuote() {
 }
 
 console.log(getRandomQuote());
+
+function setRandomColor() {
+  let randomQuote = getRandomQuote();
+  let body_bg = document.querySelector('body');
+  if (randomQuote.type === null) {
+    body_bg.style.backgroundImage = getRandomColor();
+  }
+  console.log(body_bg);
+}
 
 /***
  * Print quote function
